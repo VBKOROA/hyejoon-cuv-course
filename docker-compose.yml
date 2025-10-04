@@ -54,7 +54,12 @@ services:
   redis:
     image: redis:7.4
     container_name: hjcuv-redis
-    command: [ "redis-server", "--appendonly", "no", "--save", "\"\"" ]
+    command:
+      - "redis-server"
+      - "--appendonly"
+      - "no"
+      - "--save"
+      - ""
     ports:
       - "6379:6379"
     volumes:
