@@ -23,6 +23,8 @@ spring:
     baseline-version: 20250925_1530
     validate-on-migrate: true # SQL 변조/누락 방지
     clean-disabled: true # 스키마 초기화 금지
+  cache:
+    type: redis
     
 lock:
   redis:
