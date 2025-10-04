@@ -49,18 +49,18 @@ services:
     ports:
       - "3308:3306"
     volumes:
-      - mysql_dev_data:/var/lib/mysql-dev # MySQL 공식 기본 데이터 디렉토리
+      - mysql_dev_data:/var/lib/mysql # MySQL 공식 기본 데이터 디렉토리
 
-  redis-lock:
+  redis:
     image: redis:7.4
     container_name: hjcuv-redis
-    command: [ "redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--maxmemory-policy", "noeviction" ]
+    command: [ "redis-server", "--appendonly", "no", "--save", "\"\"" ]
     ports:
       - "6379:6379"
     volumes:
-      - redis_lock_data:/data # Redis 공식 기본 데이터 디렉토리
+      - redis_data:/data # Redis 공식 기본 데이터 디렉토리
 
 volumes:
   mysql_data:
-  redis_lock_data:
+  redis_data:
   mysql_dev_data:
