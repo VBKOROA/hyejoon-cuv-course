@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class CourseRegistService {
 
-    private static final String COURSE_REGIST_LOCK_KEY = "course-service:regist-lock:";
+    private static final String COURSE_REGIST_LOCK_KEY = "lock:course:regist:";
 
     private final CourseCreationService courseCreationService;
     private final LockManager lockManager;
