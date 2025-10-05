@@ -52,7 +52,7 @@ public class LockManager {
     }
 
     public void executeWithLock(DistributedLock distributedLock, String key,
-        Runnable runnable) throws Exception {
+        Runnable runnable) {
         this.executeWithLock(distributedLock, key, () -> {
             runnable.run();
             return null;

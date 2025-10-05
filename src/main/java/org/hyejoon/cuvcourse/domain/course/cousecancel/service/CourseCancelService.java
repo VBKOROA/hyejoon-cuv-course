@@ -1,24 +1,27 @@
 package org.hyejoon.cuvcourse.domain.course.cousecancel.service;
 
-import lombok.RequiredArgsConstructor;
-import org.hyejoon.cuvcourse.domain.course.cousecancel.exception.CourseCancelExceptionEnum;
-import org.hyejoon.cuvcourse.domain.course.entity.Course;
-import org.hyejoon.cuvcourse.domain.course.repository.CourseJpaRepository;
-import org.hyejoon.cuvcourse.global.exception.BusinessException;
+import org.hyejoon.cuvcourse.domain.course.CourseConstants;
+import org.hyejoon.cuvcourse.global.lock.DistributedLock;
+import org.hyejoon.cuvcourse.global.lock.LockManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CourseCancelService {
 
-    private final CourseJpaRepository courseJpaRepository;
+    private final LockManager lockManager;
+    private final DistributedLock distributedLock;
+    private final CourseDeletionService courseDeletionService;
 
-    @Transactional
     public void courseCancel(Long lectureId, Long studentId) {
-        Course course = courseJpaRepository.findByLectureAndStudent(lectureId, studentId)
-            .orElseThrow(() -> new BusinessException(CourseCancelExceptionEnum.COURSE_NOT_FOUND));
+        log.debug("Lock type: {}", distributedLock.getType());
 
-        courseJpaRepository.delete(course);
+        String lockKey = CourseConstants.buildCourseLockKey(lectureId);
+        
+        lockManager.executeWithLock(distributedLock, lockKey, () -> courseDeletionService.deleteCourse(lectureId, studentId));
     }
 }

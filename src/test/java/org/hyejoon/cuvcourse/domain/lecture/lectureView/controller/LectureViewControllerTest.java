@@ -1,4 +1,4 @@
-package org.hyejoon.cuvcourse.domain.lecture.view.controller;
+package org.hyejoon.cuvcourse.domain.lecture.lectureView.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.List;
-import org.hyejoon.cuvcourse.domain.lecture.lectureView.controller.LectureViewController;
 import org.hyejoon.cuvcourse.domain.lecture.lectureView.service.LectureViewService;
 import org.hyejoon.cuvcourse.domain.lecture.lectureView.dto.LectureViewResponse;
 import org.junit.jupiter.api.Test;

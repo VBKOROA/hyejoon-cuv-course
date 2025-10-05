@@ -44,4 +44,12 @@ public class Lecture extends BaseTimeEntity {
         this.credits = credits;
         this.capacity = capacity;
     }
+
+    public void increaseTotal() {
+        this.total++;
+    }
+
+    public void decreaseTotal() {
+        this.total--;
+    }
 }
